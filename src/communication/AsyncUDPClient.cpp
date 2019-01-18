@@ -34,7 +34,7 @@
 
 
 #include <sick_safetyscanners/communication/AsyncUDPClient.h>
-#include <ros/console.h>
+#include <sick_safetyscanners/console/console_wrapper.h>
 
 namespace sick {
 namespace communication {
