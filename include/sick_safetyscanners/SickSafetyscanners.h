@@ -142,6 +142,12 @@ public:
                            sick::datastructure::DeviceStatus& device_status);
 
 
+  // These functions are elevated to 'public' to allow for more fine-grained control over
+  // the TCP-connections when attempting to estimate things like clock offsets.
+  void startTCPConnection(const sick::datastructure::CommSettings& settings);
+  void stopTCPConnection();
+  void requestDeviceStatusInColaSession(sick::datastructure::DeviceStatus& device_status);
+
 private:
   packetReceivedCallbackFunction m_newPacketReceivedCallbackFunction;
 
@@ -161,15 +167,12 @@ private:
   void processUDPPacket(const datastructure::PacketBuffer& buffer);
   bool UDPClientThread();
   void processTCPPacket(const sick::datastructure::PacketBuffer& buffer);
-  void startTCPConnection(const sick::datastructure::CommSettings& settings);
   void changeCommSettingsInColaSession(const datastructure::CommSettings& settings);
-  void stopTCPConnection();
   void requestTypeCodeInColaSession(sick::datastructure::TypeCode& type_code);
   void requestFieldDataInColaSession(std::vector<sick::datastructure::FieldData>& fields);
   void requestDeviceNameInColaSession(std::string& device_name);
   void requestMonitoringCaseDataInColaSession(
     std::vector<sick::datastructure::MonitoringCaseData>& monitoring_cases);
-  void requestDeviceStatusInColaSession(sick::datastructure::DeviceStatus& device_status);
 };
 
 } // namespace sick
