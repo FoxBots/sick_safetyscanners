@@ -137,6 +137,7 @@ bool Cola2Session::startProcessingAndRemovePendingCommandAfterwards(
 
 bool Cola2Session::addCommand(const uint16_t& request_id, const CommandPtr& command)
 {
+  boost::lock_guard<boost::mutex> lock (m_execution_mutex);
   if (m_pending_commands_map.find(request_id) != m_pending_commands_map.end())
   {
     return false;
@@ -147,6 +148,7 @@ bool Cola2Session::addCommand(const uint16_t& request_id, const CommandPtr& comm
 
 bool Cola2Session::findCommand(const uint16_t& request_id, CommandPtr& command)
 {
+  boost::lock_guard<boost::mutex> lock (m_execution_mutex);
   if (m_pending_commands_map.find(request_id) == m_pending_commands_map.end())
   {
     return false;
@@ -157,6 +159,7 @@ bool Cola2Session::findCommand(const uint16_t& request_id, CommandPtr& command)
 
 bool Cola2Session::removeCommand(const uint16_t& request_id)
 {
+  boost::lock_guard<boost::mutex> lock (m_execution_mutex);
   auto it = m_pending_commands_map.find(request_id);
   if (it == m_pending_commands_map.end())
   {
